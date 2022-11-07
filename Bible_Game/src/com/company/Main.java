@@ -6,8 +6,10 @@ import com.company.Spirit.Moses;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class Main extends JPanel {
+public class Main extends JPanel implements KeyListener {
 
     // 每格移動的大小
     public static final int CELL = 50;
@@ -26,6 +28,7 @@ public class Main extends JPanel {
     public Main() {
         moses = new Moses(1, 1);
         gameView = new DisasterView();
+        addKeyListener(this);
     }
 
     @Override
@@ -37,6 +40,7 @@ public class Main extends JPanel {
     public void paintComponent(Graphics g) {
         gameView.drawView(g);
         moses.draw(g);
+        requestFocusInWindow();
     }
 
     public static void main(String[] args) {
@@ -49,4 +53,43 @@ public class Main extends JPanel {
         window.setResizable(false);
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        Point mosesPoint = moses.getRelativePosition();
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_UP:
+                if (mosesPoint.y > 1) {
+                    mosesPoint.y -= 1;
+                }
+                break;
+            case KeyEvent.VK_DOWN:
+                if (mosesPoint.y < ROW) {
+                    mosesPoint.y += 1;
+                }
+                break;
+            case KeyEvent.VK_LEFT:
+                if (mosesPoint.x > 1) {
+                    mosesPoint.x -= 1;
+                }
+                break;
+            case KeyEvent.VK_RIGHT:
+                if (mosesPoint.x < COLUMN) {
+                    mosesPoint.x += 1;
+                }
+                break;
+        }
+        moses.setPosition(mosesPoint);
+        // repaint整個 JPanel ， 所以遊戲畫面會自動更新
+        repaint();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
 }
