@@ -9,4 +9,8 @@ public class Moses extends Spirit {
         img = new ImageIcon("Moses.png");
     }
 
+    @Override
+    public String overlap(int x, int y) {
+        return null;
+    }
 }
