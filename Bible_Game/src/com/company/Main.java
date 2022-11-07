@@ -4,7 +4,15 @@ import com.company.GameView.DisasterView;
 import com.company.GameView.GameView;
 import com.company.GameView.RedSeaGameView;
 import com.company.GameView.TenCommandmentsView;
+import com.company.Spirit.DisasterViewSpirit.Bug;
+import com.company.Spirit.DisasterViewSpirit.Frog;
+import com.company.Spirit.DisasterViewSpirit.Ice;
+import com.company.Spirit.DisasterViewSpirit.Tombstone;
 import com.company.Spirit.Moses;
+import com.company.Spirit.RedSeaViewSpirit.Anubis;
+import com.company.Spirit.RedSeaViewSpirit.Cat;
+import com.company.Spirit.RedSeaViewSpirit.Pharaoh;
+import com.company.Spirit.Spirit;
 
 import javax.swing.*;
 import java.awt.*;
@@ -168,6 +176,74 @@ public class Main extends JPanel implements KeyListener {
                         return;
                     }
                     if (changeLevel(result)) return;
+                }
+                break;
+
+            case KeyEvent.VK_W:
+                for (int i = mosesPoint.y; i > 0; i--) {
+                    for (Spirit s : gameView.getElements()) {
+                        if (s.getRelativePosition() != null && s.getRelativePosition().x == mosesPoint.x && s.getRelativePosition().y == i) {
+                            if (s instanceof Cat || s instanceof Ice || s instanceof Tombstone) {
+                                return;
+                            }
+                            if (s instanceof Anubis || s instanceof Pharaoh || s instanceof Bug || s instanceof Frog) {
+                                s.setNullPosition();
+                                repaint();
+                                return;
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case KeyEvent.VK_S:
+                for (int i = mosesPoint.y; i <= ROW; i++) {
+                    for (Spirit s : gameView.getElements()) {
+                        if (s.getRelativePosition() != null && s.getRelativePosition().x == mosesPoint.x && s.getRelativePosition().y == i) {
+                            if (s instanceof Cat || s instanceof Ice || s instanceof Tombstone) {
+                                return;
+                            }
+                            if (s instanceof Anubis || s instanceof Pharaoh || s instanceof Bug || s instanceof Frog) {
+                                s.setNullPosition();
+                                repaint();
+                                return;
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case KeyEvent.VK_D:
+                for (int i = mosesPoint.x; i <= COLUMN; i++) {
+                    for (Spirit s : gameView.getElements()) {
+                        if (s.getRelativePosition() != null && s.getRelativePosition().x == i && s.getRelativePosition().y == mosesPoint.y) {
+                            if (s instanceof Cat || s instanceof Ice || s instanceof Tombstone) {
+                                return;
+                            }
+                            if (s instanceof Anubis || s instanceof Pharaoh || s instanceof Bug || s instanceof Frog) {
+                                s.setNullPosition();
+                                repaint();
+                                return;
+                            }
+                        }
+                    }
+                }
+                break;
+
+            case KeyEvent.VK_A:
+                for (int i = mosesPoint.x; i > 0; i--) {
+                    for (Spirit s : gameView.getElements()) {
+                        if (s.getRelativePosition() != null && s.getRelativePosition().x == i && s.getRelativePosition().y == mosesPoint.y) {
+                            if (s instanceof Cat || s instanceof Ice || s instanceof Tombstone) {
+                                return;
+                            }
+                            if (s instanceof Anubis || s instanceof Pharaoh || s instanceof Bug || s instanceof Frog) {
+                                s.setNullPosition();
+                                repaint();
+                                return;
+                            }
+                        }
+                    }
                 }
                 break;
         }
