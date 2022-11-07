@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.GameView.DisasterView;
 import com.company.GameView.GameView;
+import com.company.GameView.RedSeaGameView;
+import com.company.GameView.TenCommandmentsView;
 import com.company.Spirit.Moses;
 
 import javax.swing.*;
@@ -28,13 +30,13 @@ public class Main extends JPanel implements KeyListener {
     private int level;
 
     public Main() {
+        level = 1;
         resetGame(new DisasterView());
         addKeyListener(this);
     }
 
-    public void resetGame(GameView game){
-        level = 1;
-        moses = new Moses(1,1);
+    public void resetGame(GameView game) {
+        moses = new Moses(1, 1);
         gameView = game;
         repaint();
     }
@@ -61,6 +63,19 @@ public class Main extends JPanel implements KeyListener {
         window.setResizable(false);
     }
 
+    private boolean changeLevel(String result) {
+        if (result.equals("Next level")) {
+            level++;
+            if (level == 2) {
+                resetGame(new RedSeaGameView());
+            } else if (level == 3) {
+                resetGame(new TenCommandmentsView());
+            }
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -75,6 +90,7 @@ public class Main extends JPanel implements KeyListener {
                     String result = moses.overlap(mosesPoint.x, mosesPoint.y - 1);
                     if (result.equals("Die")) {
                         // reset game
+                        level = 1;
                         JOptionPane.showMessageDialog(this, "You die. Please try again.");
                         resetGame(new DisasterView());
                         return;
@@ -82,6 +98,13 @@ public class Main extends JPanel implements KeyListener {
                     if (!result.equals("Cannot move")) {
                         mosesPoint.y -= 1;
                     }
+
+                    if (result.equals("Game over")) {
+                        JOptionPane.showMessageDialog(this, "You win the game!");
+                        return;
+                    }
+
+                    if (changeLevel(result)) return;
                 }
                 break;
             case KeyEvent.VK_DOWN:
@@ -89,6 +112,7 @@ public class Main extends JPanel implements KeyListener {
                     String result = moses.overlap(mosesPoint.x, mosesPoint.y + 1);
                     if (result.equals("Die")) {
                         // reset game
+                        level = 1;
                         JOptionPane.showMessageDialog(this, "You die. Please try again.");
                         resetGame(new DisasterView());
                         return;
@@ -96,6 +120,12 @@ public class Main extends JPanel implements KeyListener {
                     if (!result.equals("Cannot move")) {
                         mosesPoint.y += 1;
                     }
+
+                    if (result.equals("Game over")) {
+                        JOptionPane.showMessageDialog(this, "You win the game!");
+                        return;
+                    }
+                    if (changeLevel(result)) return;
                 }
                 break;
             case KeyEvent.VK_LEFT:
@@ -103,6 +133,7 @@ public class Main extends JPanel implements KeyListener {
                     String result = moses.overlap(mosesPoint.x - 1, mosesPoint.y);
                     if (result.equals("Die")) {
                         // reset game
+                        level = 1;
                         JOptionPane.showMessageDialog(this, "You die. Please try again.");
                         resetGame(new DisasterView());
                         return;
@@ -110,6 +141,12 @@ public class Main extends JPanel implements KeyListener {
                     if (!result.equals("Cannot move")) {
                         mosesPoint.x -= 1;
                     }
+
+                    if (result.equals("Game over")) {
+                        JOptionPane.showMessageDialog(this, "You win the game!");
+                        return;
+                    }
+                    if (changeLevel(result)) return;
                 }
                 break;
             case KeyEvent.VK_RIGHT:
@@ -117,6 +154,7 @@ public class Main extends JPanel implements KeyListener {
                     String result = moses.overlap(mosesPoint.x + 1, mosesPoint.y);
                     if (result.equals("Die")) {
                         // reset game
+                        level = 1;
                         JOptionPane.showMessageDialog(this, "You die. Please try again.");
                         resetGame(new DisasterView());
                         return;
@@ -124,6 +162,12 @@ public class Main extends JPanel implements KeyListener {
                     if (!result.equals("Cannot move")) {
                         mosesPoint.x += 1;
                     }
+
+                    if (result.equals("Game over")) {
+                        JOptionPane.showMessageDialog(this, "You win the game!");
+                        return;
+                    }
+                    if (changeLevel(result)) return;
                 }
                 break;
         }
