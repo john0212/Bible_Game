@@ -91,9 +91,17 @@ public class Moses extends Spirit {
                 return "Next level";
             }
         } else if (Main.gameView instanceof TenCommandmentsView) {
-            TenCommandment stone = ((TenCommandmentsView) Main.gameView).getStone();
-            if (x == stone.getRelativePosition().x && y == stone.getRelativePosition().y) {
-                return "Game over";
+            ArrayList<TenCommandment> stones = ((TenCommandmentsView) Main.gameView).getStones();
+            for (TenCommandment stone : stones) {
+                if (stone.getRelativePosition() != null && stone.getRelativePosition().x == x && stone.getRelativePosition().y == y) {
+                    stone.setNullPosition();
+                    ((TenCommandmentsView) Main.gameView).setCount(1);
+                    if (((TenCommandmentsView) Main.gameView).getCount() == 10) {
+                        return "Game over";
+                    } else {
+                        return "none";
+                    }
+                }
             }
         }
 

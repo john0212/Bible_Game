@@ -29,6 +29,7 @@ public abstract class Spirit {
         absolutePosition = new Point((x - 1) * Main.CELL, (y - 1) * Main.CELL);
     }
 
+    // 要讓物件消失在螢幕中
     public void setNullPosition() {
         relativePosition = null;
         absolutePosition = null;
